@@ -3,6 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import data from './data/data';
+import MergeForm from './forms/mergeForm';
 
 const App = () => {
 
@@ -11,6 +12,7 @@ const App = () => {
  
   const [rowData, setRowData] = useState(data); // Set rowData to Array of Objects, one Object per Row
   const [rows, setRows] = useState([])
+  const [formState, setFormState] = useState(false)
 
   // Each Column Definition results in one Column.
   const [columnDefs, setColumnDefs] = useState([
@@ -66,17 +68,18 @@ const App = () => {
   };
 
   const merge = () => {
-    console.log(data)
+    setFormState(true)
   };
 
   return (
-    <div className="ag-theme-alpine-dark" style={{width: 2300, height: 1000}}>
+    <div>
       <div className="example-header" style={{color:'black'}}>
         Selection:
         <span id="selectedRows" ></span>
       </div>
       <button onClick={merge}>merge</button>
       <button onClick={del}>delete</button>
+      <div className="ag-theme-alpine-dark" style={{width: 2300, height: 1000}}>
       <AgGridReact
           ref={gridRef}
           rowData={rowData}
@@ -89,6 +92,8 @@ const App = () => {
           onGridReady={onGridReady}
           onSelectionChanged={onSelectionChanged}
       ></AgGridReact>
+      </div>
+      <MergeForm renderBool={formState}/>
     </div>
   );
 };

@@ -1,0 +1,26 @@
+/* Add styles to the form container */
+.form-container {
+  display : grid;
+  grid-template-rows: 10% 30% 50% 10%;
+  grid-template-columns: 100%;
+  position: absolute;
+  height: 100vh;
+  width: 30vw;
+  top : 0px;
+  background-color: white;  
+  position: fixed;
+
+  z-index : 9;
+}
+
+h1 {
+  height: 1rem;
+  align-items: center;
+}
+
+.inputs, .years {
+  display : flex;
+  flex-direction: column;
+}
+
+
