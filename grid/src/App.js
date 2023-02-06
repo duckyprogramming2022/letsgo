@@ -93,7 +93,7 @@ const App = () => {
           onSelectionChanged={onSelectionChanged}
       ></AgGridReact>
       </div>
-      <MergeForm renderBool={formState}/>
+      <MergeForm renderBool={formState} renderAction={setFormState}/>
     </div>
   );
 };
