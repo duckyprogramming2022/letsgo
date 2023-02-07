@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-enterprise';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import data from './data/data';
@@ -16,7 +17,7 @@ const App = () => {
 
   // Each Column Definition results in one Column.
   const [columnDefs, setColumnDefs] = useState([
-    {field : 'id', hide : true},
+    {field : 'id', cellRenderer: 'agGroupCellRenderer'},
     {field: 'plant', filter: true, rowDrag : true},
     {field: 'customer', filter: true},
     {field: 'material', filter: true},
@@ -38,7 +39,7 @@ const App = () => {
    },[]);
 
   const onGridReady = useCallback((params) => {
-    setRowData([...rowData], rowData.map(ele => ele["id"] = ele["plant"]+ele["customer"]+ele["material"]+ele["revStatus"]))
+    setRowData([...rowData], rowData.map(ele => ele["id"] = ele["plant"]+ele["customer"]+ele["material"]+ele["revStatus"]));
   }, [rowData]) ;
 
   const onSelectionChanged = useCallback(() =>  {
@@ -46,7 +47,6 @@ const App = () => {
     const selectedRows = gridRef.current.api.getSelectedRows();
     let  selectedRowsString = '';
 
-    const maxToShow = 5;
     setRows([])
     selectedRows.forEach((selectedRow, index) => {
 
@@ -55,13 +55,13 @@ const App = () => {
         selectedRowsString += ', ';
       }
       selectedRowsString += selectedRow.id;
-
+      
     });
 
     console.log(selectedRowsString)
     document.querySelector('#selectedRows').innerHTML = selectedRowsString;
   }, []);
-
+  
   const del = () => {
     const toBeDeleted = rows.map(ele => ele.id);
     setRowData(rowData.filter(ele => !toBeDeleted.includes(ele.id)))
@@ -70,6 +70,35 @@ const App = () => {
   const merge = () => {
     setFormState(true)
   };
+
+  const detailCellRendererParams = useMemo(() => {
+    
+    return {
+      // level 2 grid options
+      detailGridOptions: {
+        columnDefs: [
+          { field: 'plant', cellRenderer: 'agGroupCellRenderer' },
+          { field: 'customer' },
+        ],
+        defaultColDef: {
+          flex: 1,
+        },
+        groupDefaultExpanded: 2,
+        masterDetail: false,
+        detailRowHeight: 240,
+        detailRowAutoHeight: true,
+      },
+      getDetailRowData: (params) => {
+        params.successCallback(params.data.children);
+      },
+    };
+  }, []);
+
+  const onFirstDataRendered = useCallback((params) => {
+    gridRef.current.api.forEachNode(function (node) {
+      node.setExpanded(false);
+    });
+  }, []);
 
   return (
     <div>
@@ -91,9 +120,14 @@ const App = () => {
           animateRows={true}
           onGridReady={onGridReady}
           onSelectionChanged={onSelectionChanged}
+          groupDefaultExpanded={1}
+          masterDetail={true}
+          detailRowAutoHeight={true}
+          detailCellRendererParams={detailCellRendererParams}
+          onFirstDataRendered={onFirstDataRendered}
       ></AgGridReact>
       </div>
-      <MergeForm renderBool={formState} renderAction={setFormState}/>
+      <MergeForm renderBool={formState} setRenderBool={setFormState}/>
     </div>
   );
 };

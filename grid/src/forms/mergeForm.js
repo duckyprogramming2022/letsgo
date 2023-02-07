@@ -1,9 +1,27 @@
-import React from "react";
+import React, {useRef, useEffect} from "react";
 import './mergeForm.css'
-const MergeForm = ({renderBool,renderAction}) => {
+
+const MergeForm = ({renderBool,setRenderBool}) => {
+
+  const formRef = useRef(null);
+
   if (renderBool) {
+
+    const handleClickOutside = (event) => {
+      if (event.target.textContent !== 'merge' && formRef.current && !formRef.current.contains(event.target)) {
+        
+        document.removeEventListener("click", handleClickOutside)
+        setRenderBool(false);
+      } 
+      console.log(event.target, formRef.current, !formRef.current.contains(event.target))
+    }
+
+    document.addEventListener("click", handleClickOutside);
+
+
+  
     return (
-      <form class="form-container">
+      <form className="form-container" ref={formRef}>
         <h1>Merge</h1>
         <div className="inputs">
           <label htmlFor="plant">Plant</label>
@@ -32,8 +50,8 @@ const MergeForm = ({renderBool,renderAction}) => {
           <input type='number' id='2029'/>
         </div>
         <div className="btns">
-          <button type="submit" class="btn">Login</button>
-          <button type="button" class="cancel" onClick={()=>renderAction(false)}>Close</button>
+          <button type="submit" className="btn">Login</button>
+          <button type="button" className="cancel" onClick={()=>setRenderBool(false)}>Close</button>
         </div>
       </form>
     )
