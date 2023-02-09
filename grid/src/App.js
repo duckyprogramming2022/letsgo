@@ -127,7 +127,7 @@ const App = () => {
           onFirstDataRendered={onFirstDataRendered}
       ></AgGridReact>
       </div>
-      <MergeForm renderBool={formState} setRenderBool={setFormState}/>
+      <MergeForm renderBool={formState} setRenderBool={setFormState} mergeData={rows}/>
     </div>
   );
 };
