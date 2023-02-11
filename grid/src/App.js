@@ -77,13 +77,23 @@ const App = () => {
       // level 2 grid options
       detailGridOptions: {
         columnDefs: [
-          { field: 'plant', cellRenderer: 'agGroupCellRenderer' },
-          { field: 'customer' },
+          {field : 'id', cellRenderer: 'agGroupCellRenderer'},
+          {field: 'plant', filter: true, rowDrag : true},
+          {field: 'customer', filter: true},
+          {field: 'material', filter: true},
+          {field: 'revStatus', filter: true},
+          {field: '2023'},
+          {field: '2024'},
+          {field: '2025'},
+          {field: '2026'},
+          {field: '2027'},
+          {field: '2028'},
+          {field: '2029'}
         ],
         defaultColDef: {
           flex: 1,
         },
-        groupDefaultExpanded: 2,
+        groupDefaultExpanded: 0,
         masterDetail: false,
         detailRowHeight: 240,
         detailRowAutoHeight: true,
@@ -92,13 +102,13 @@ const App = () => {
         params.successCallback(params.data.children);
       },
     };
-  }, []);
+  }, [rowData]);
 
   const onFirstDataRendered = useCallback((params) => {
     gridRef.current.api.forEachNode(function (node) {
       node.setExpanded(false);
     });
-  }, []);
+  }, [rowData]);
 
   return (
     <div>
@@ -120,7 +130,7 @@ const App = () => {
           animateRows={true}
           onGridReady={onGridReady}
           onSelectionChanged={onSelectionChanged}
-          groupDefaultExpanded={1}
+          groupDefaultExpanded={0}
           masterDetail={true}
           detailRowAutoHeight={true}
           detailCellRendererParams={detailCellRendererParams}
