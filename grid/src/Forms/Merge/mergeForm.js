@@ -11,7 +11,12 @@ const MergeForm = ({renderAble,setRenderAble, setData, mergeData}) => {
   const [headerInfo, setHeaderInfo] = useState({id : '', plant: '', customer : '', material: '', revStatus : ''})
   
   const mergedRows = mergeData;
-  
+
+  const del = () => {
+    const toBeDeleted = mergeData.map(ele => ele.id);
+    setData(item => item.filter(ele => !toBeDeleted.includes(ele.id)))
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -20,7 +25,7 @@ const MergeForm = ({renderAble,setRenderAble, setData, mergeData}) => {
     mushTogether.id = mushTogether.plant + mushTogether.customer + mushTogether.material + mushTogether.revStatus
     mushTogether['children'] = mergedRows
     setData(items => [...items, mushTogether])
-    
+    del()
     setRenderAble(false)
   };
 
