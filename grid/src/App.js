@@ -4,7 +4,7 @@ import 'ag-grid-enterprise';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import data from './data/data';
-import MergeForm from './forms/mergeForm';
+import MergeForm from './Forms/Merge/mergeForm';
 
 const App = () => {
 
@@ -127,7 +127,7 @@ const App = () => {
           onFirstDataRendered={onFirstDataRendered}
       ></AgGridReact>
       </div>
-      <MergeForm renderBool={formState} setRenderBool={setFormState} mergeData={rows}/>
+      <MergeForm renderAble={formState} setRenderAble={setFormState} setData={setRowData} mergeData={rows}/>
     </div>
   );
 };
