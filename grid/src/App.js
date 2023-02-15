@@ -5,6 +5,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import data from './data/data';
 import MergeForm from './Forms/Merge/mergeForm';
+import customerHeader from './Columns/customerHeader';
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
     {field : 'id', cellRenderer: 'agGroupCellRenderer'},
     {field: 'plant', filter: true, rowDrag : true},
     {field: 'customer', filter: true},
+    {field: 'customerGroup', hide:true},
     {field: 'material', filter: true},
     {field: 'revStatus', filter: true},
     {field: '2023'},
