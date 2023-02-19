@@ -4,9 +4,11 @@ import FromYears from './Years/FromYears'
 import FormInputs from './Inputs/FormInputs'
 import FormButtons from "./Buttons/FormButtons";
 import clickHandler from './ClickHandler/Module'
+import data from '../../data/data'
 
 const MergeForm = ({renderAble,setRenderAble, setData, mergeData}) => {
 
+  
   const [newVolumes, setNewVolumes] = useState([])
   const [headerInfo, setHeaderInfo] = useState({id : '', plant: '', customer : '', material: '', revStatus : ''})
   
@@ -19,7 +21,6 @@ const MergeForm = ({renderAble,setRenderAble, setData, mergeData}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
     setHeaderInfo({...headerInfo, id : headerInfo.plant+headerInfo.customer+headerInfo.material+headerInfo.revStatus})
     const mushTogether = Object.assign(headerInfo, newVolumes)
     mushTogether.id = mushTogether.plant + mushTogether.customer + mushTogether.material + mushTogether.revStatus
