@@ -1,19 +1,20 @@
-const FormInputs = ({columnInfo ,setColumnInfo}) => {
+const FormInputs = ({headerInfo ,setHeaderInfo}) => {
+
 
   const handleChange = (e) => {
-    setColumnInfo({...columnInfo, [e.target.id] : e.target.value})      
+    setHeaderInfo({...headerInfo, [e.target.id] : e.target.value})      
   }
 
   return (
     <div className="inputs">
-    <label htmlFor="plant">Plant</label>
-    <input type="text" id='plant' onChange={handleChange} defaultValue={columnInfo.plant} required/>
-    <label htmlFor="customer">Customer</label>
-    <input type="text" id='customer' onChange={handleChange} defaultValue={columnInfo.customer} required/>
-    <label htmlFor="material">Material</label>
-    <input type="text" id='material' onChange={handleChange} defaultValue={columnInfo.material} required/>
-    <label htmlFor="revStatus">Rev Status</label>
-    <input type="text" id='revStatus' onChange={handleChange} defaultValue={columnInfo.revStatus} required/>
+      <label htmlFor="plant">Plant</label>
+      <input type="text" id='plant' onChange={handleChange} defaultValue={headerInfo.plant} required/>
+      <label htmlFor="customer">Customer</label>
+      <input type="text" id='customer' onChange={handleChange} defaultValue={headerInfo.customer} required/>
+      <label htmlFor="material">Material</label>
+      <input type="text" id='material' onChange={handleChange} defaultValue={headerInfo.material} required/>
+      <label htmlFor="revStatus">Rev Status</label>
+      <input type="text" id='revStatus' onChange={handleChange} defaultValue={headerInfo.revStatus} required/>
     </div>
   )
 }

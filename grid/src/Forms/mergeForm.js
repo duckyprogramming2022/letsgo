@@ -32,8 +32,8 @@ const MergeForm = ({formState, setFormState, setRowData, rows}) => {
     return (
       <form className="form-container" onSubmit={handleSubmit}>
         <h1>Merge</h1>
-        <FormInputs columnInfo={headerInfo} setColumnInfo={setHeaderInfo}/>
-        <FromYears dat={mergedRows} setVolumes={setNewVolumes}/>
+        <FormInputs headerInfo={headerInfo} setHeaderInfo={setHeaderInfo}/>
+        <FromYears mergedRows={mergedRows} setNewVolumes={setNewVolumes}/>
         <FormButtons setFormState={setFormState}/>
       </form>
     )

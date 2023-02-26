@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import '../Style/Form.css'
 
 
-const FromYears = ({dat, setVolumes}) => {
+const FromYears = ({mergedRows, setNewVolumes}) => {
 
-  const datMerged = dat.reduce((acc, current) => {
+  const datMerged = mergedRows.reduce((acc, current) => {
     Object.entries(current).forEach(([key, val]) => {
       if (typeof val === 'number') {
         acc[key] = (acc[key] || 0) + val;
@@ -21,8 +21,8 @@ const FromYears = ({dat, setVolumes}) => {
   })
 
   useEffect(()=>{
-    setVolumes(datMerged)
-  },[dat])
+    setNewVolumes(datMerged)
+  },[mergedRows])
 
   
   return <div className="years">{inputs}</div>
