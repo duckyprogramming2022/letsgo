@@ -1,22 +1,20 @@
 import React, {useEffect, useState} from "react";
-import './mergeForm.css'
+import './Style/Form.css'
 import FromYears from './Years/FromYears'
 import FormInputs from './Inputs/FormInputs'
 import FormButtons from "./Buttons/FormButtons";
-import clickHandler from './ClickHandler/Module'
-import data from '../../data/data'
 
-const MergeForm = ({renderAble,setRenderAble, setData, mergeData}) => {
 
-  
+const MergeForm = ({formState, setFormState, setRowData, rows}) => {
+
   const [newVolumes, setNewVolumes] = useState([])
   const [headerInfo, setHeaderInfo] = useState({id : '', plant: '', customer : '', material: '', revStatus : ''})
   
-  const mergedRows = mergeData;
+  const mergedRows = rows;
 
   const del = () => {
-    const toBeDeleted = mergeData.map(ele => ele.id);
-    setData(item => item.filter(ele => !toBeDeleted.includes(ele.id)))
+    const toBeDeleted = rows.map(ele => ele.id);
+    setRowData(item => item.filter(ele => !toBeDeleted.includes(ele.id)))
   };
 
   const handleSubmit = (e) => {
@@ -25,35 +23,18 @@ const MergeForm = ({renderAble,setRenderAble, setData, mergeData}) => {
     const mushTogether = Object.assign(headerInfo, newVolumes)
     mushTogether.id = mushTogether.plant + mushTogether.customer + mushTogether.material + mushTogether.revStatus
     mushTogether['children'] = mergedRows
-    setData(items => [...items, mushTogether])
+    setRowData(items => [...items, mushTogether])
     del()
-    setRenderAble(false)
-  };
+    setFormState(false)
+  };  
 
-
-  useEffect(()=>{
-
-    const handleClicksOutside = (event) => {
-      clickHandler.Outside(event, setRenderAble)
-    }
-    
-    if (renderAble) {
-      document.addEventListener("click", handleClicksOutside)
-    }
-    return()=> {
-      document.removeEventListener("click", handleClicksOutside)
-    }
-  },[renderAble])
-
-  
-
-  if (renderAble) {  
+  if (formState) {  
     return (
       <form className="form-container" onSubmit={handleSubmit}>
         <h1>Merge</h1>
         <FormInputs columnInfo={headerInfo} setColumnInfo={setHeaderInfo}/>
         <FromYears dat={mergedRows} setVolumes={setNewVolumes}/>
-        <FormButtons setRender={setRenderAble}/>
+        <FormButtons setFormState={setFormState}/>
       </form>
     )
   }  

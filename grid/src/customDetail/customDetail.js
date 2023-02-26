@@ -4,6 +4,7 @@ import { AgGridReact } from 'ag-grid-react';
 import { ClientSideRowModelModule } from 'ag-grid-community';
 import { ModuleRegistry } from 'ag-grid-community';
 
+
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 const DetailCellRenderer = ({detailData, setDetailData, data, node, api }) => {
@@ -44,13 +45,13 @@ const DetailCellRenderer = ({detailData, setDetailData, data, node, api }) => {
 
   const handleClick = () => {
     const toUnfuse = data.children;
-    console.log(detailData)
+    if (toUnfuse.length > 0) {
     toUnfuse.forEach(ele => {
       setDetailData(item => [...item, ele])
     })
     console.log(detailData, data.id)
     setDetailData(item => item.filter(ele => ele.id !== data.id))
-    
+  }
   }
 
   return (
