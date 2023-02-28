@@ -13,7 +13,7 @@ import data from './data/data';
 import dataInitial from './data/dataInitial';
 import DetailCellRenderer from './customDetail/customDetail';
 import handleClick from './PrimaryFunctions/handleClick';
-import DecideOnForm from './Forms/Form';
+import DecideOnForm from './Forms/DecideOnForm';
 import outSideClick from './outSideClick';
 
 ModuleRegistry.registerModules([
@@ -67,6 +67,7 @@ const App = () => {
 
     const handleClicksOutside = (event) => {
       outSideClick(event, setFormState)
+      console.log(formState)
     }
     
     if (formState) {
@@ -100,10 +101,11 @@ const App = () => {
             detailCellRenderer={detailCellRenderer}
             detailCellRendererParams={detailCellRendererParams}
         ></AgGridReact>
-      </div>
-      <DecideOnForm formState={formState} primaryFunction={primaryFunction} setPrimaryFunction={setPrimaryFunction} setFormState={setFormState} setRowData={setRowData} rows={rows}/>
+      </div> 
+      <DecideOnForm formState={formState} setFormState={setFormState} setRowData={setRowData} rows={rows} primaryFunction={primaryFunction} />
     </div>
   );
+  
 };
 
 export default App;

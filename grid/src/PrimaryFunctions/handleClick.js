@@ -11,11 +11,14 @@ const handleClick = (e, setPrimaryFunction, setRowData, setFormState, rows, rowD
     return setRowData(rowData.filter(ele => !toBeDeleted.includes(ele.id)))
   };
 
+  console.log(rows.length)
   if (primaryFunctionName === 'delete') {
     return del()
-  } else {
+  } else if (rows.length !== 0) {
     return setFormState(true)
-  }  
+  } else {
+    alert('select a row')
+  }
   
 };
 

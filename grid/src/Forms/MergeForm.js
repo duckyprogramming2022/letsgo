@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import './Style/Form.css'
 import FromYears from './Years/FromYears'
-import FormInputs from './Inputs/FormInputs'
-import FormButtons from "./Buttons/FormButtons";
+import MergeInputs from './Inputs/MergeInputs'
+import FormButtons from './Buttons/FormButtons';
 
 
 const MergeForm = ({formState, setFormState, setRowData, rows}) => {
@@ -32,7 +32,7 @@ const MergeForm = ({formState, setFormState, setRowData, rows}) => {
     return (
       <form className="form-container" onSubmit={handleSubmit}>
         <h1>Merge</h1>
-        <FormInputs headerInfo={headerInfo} setHeaderInfo={setHeaderInfo}/>
+        <MergeInputs headerInfo={headerInfo} setHeaderInfo={setHeaderInfo}/>
         <FromYears mergedRows={mergedRows} setNewVolumes={setNewVolumes}/>
         <FormButtons setFormState={setFormState}/>
       </form>

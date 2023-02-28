@@ -1,18 +1,22 @@
-import React, {useEffect, useState} from "react"
+import React, {useState} from "react"
 import FormButtons from "./Buttons/FormButtons"
-import Splits from "./Inputs/split";
+import Splits from "./Inputs/Splits";
 import './Style/Form.css'
 
 
 const SplitForm = ({formState, setFormState, setRowData, rows}) => {
+  
 
-  const [headerInfo, setHeaderInfo] = useState({id : '', plant: '', customer : '', material: '', revStatus : ''})
+
+  const [headerInfo, setHeaderInfo] = useState({id : rows[0].id, plant: rows[0].plant, customer : rows[0].customer, material: rows[0].material, revStatus : rows[0].material})
   const [numberOfSplits, setNumberOfSplits] = useState(0)
   const [splitRender, setSplitRender] = useState(false);
 
   const handleSplitClick = (e) => {
-    e.preventDefault();    
-    setSplitRender(true)
+    e.preventDefault();
+    setHeaderInfo({...headerInfo, share : 100/numberOfSplits})    
+    setSplitRender(true);
+    console.log(headerInfo)
   }
 
   const splitHandleChange = (e) => {
@@ -28,11 +32,12 @@ const SplitForm = ({formState, setFormState, setRowData, rows}) => {
           <input className="howmanysplits" id='splits' type='number' onChange={splitHandleChange} defaultValue={numberOfSplits}></input>
           <button className="numberOfSplits" onClick={handleSplitClick}>Split</button>
         </div>
-        <Splits numberOfSplits={numberOfSplits} splitRender={splitRender}/>
+        <Splits numberOfSplits={numberOfSplits} splitRender={splitRender} headerInfo={headerInfo} setHeaderInfo={setHeaderInfo}/>
         <FormButtons setFormState={setFormState}/>
       </form>
     )
   }
+
 }
 
 export default SplitForm;
